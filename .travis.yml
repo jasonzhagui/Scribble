@@ -1,12 +1,12 @@
 language: python
 python:
-    - '3.8'
+    - '3.9'
 
 install:
     - pip install -r requirements-dev.txt
 
 env:
-    - PYTHONPATH=/home/travis/build/gcallah/demo-repo2
+    - PYTHONPATH=/home/travis/build/jasonzhagui/Scribble
 
 script:
     - make tests
