@@ -38,7 +38,7 @@ class ListRoom(Resource):
         """
         Returns a list of all chat rooms.
         """
-        return {"Software Engineering": {"num_users": 21},
+        return {"Software Engineering": {"num_users": 25},
                 "AI": {"num_users": 27}, }
 
 
