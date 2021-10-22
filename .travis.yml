@@ -14,7 +14,7 @@ script:
 # deploy to heroku on push to master
 deploy:
     - provider: heroku
-    api_key: $HEROKU_API_KEY
-    app: scribble-art
-    on:
-        branch: master
+      api_key: $HEROKU_API_KEY
+      app: scribble-art
+      on:
+          branch: master
