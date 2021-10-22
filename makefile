@@ -10,7 +10,7 @@ prod: tests github
 
 github: FORCE
 	- git commit -a
-	git push origin master
+	git push origin main
 
 tests: lint unit
 
