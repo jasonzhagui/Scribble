@@ -23,15 +23,15 @@ class EndpointTestCase(TestCase):
 
     def test_list_rooms1(self):
         """
-        Post-conditions 1: return is a dict.
+        Post-condition 1: return is a dictionary.
         """
         lr = ep.ListRooms(Resource)
         ret = lr.get()
         self.assertIsInstance(ret, dict)
-        
+
     def test_list_rooms2(self):
         """
-        Post_conditions 2: keys to the dict are strings
+        Post-condition 2: keys to the dict are strings
         """
         lr = ep.ListRooms(Resource)
         ret = lr.get()
@@ -40,7 +40,7 @@ class EndpointTestCase(TestCase):
 
     def test_list_rooms3(self):
         """
-        Post_conditions 3: Thevalies in the dict are themselves dicts
+        Post-condition 3: the values in the dict are themselves dicts
         """
         lr = ep.ListRooms(Resource)
         ret = lr.get()
