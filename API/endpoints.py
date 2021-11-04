@@ -44,12 +44,12 @@ class ListRooms(Resource):
         """
         rooms = db.get_rooms()
         if rooms is None:
-            raise (wz.NotFound("Chat room db not found."))
+            raise (wz.NotFound("CHat room db not found."))
         else:
             return rooms
 
 
-@api.route('/create_room<roomname>')
+@api.route('/create_room/<roomname>')
 class CreateRoom(Resource):
     """
     This class supports adding a chat room.
