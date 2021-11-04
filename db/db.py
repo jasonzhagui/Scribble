@@ -7,6 +7,7 @@ Gradually, we will fill in actual calls to our datastore.
 import json
 import os
 
+
 DEMO_HOME = os.environ["DEMO_HOME"]
 
 ROOMS_DB = f"{DEMO_HOME}/db/rooms.json"
@@ -14,6 +15,11 @@ ROOMS_DB = f"{DEMO_HOME}/db/rooms.json"
 OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
+
+
+def write_rooms(rooms):
+    with open(ROOMS_DB, 'w') as f:
+        json.dump(rooms, f, indent=4)
 
 
 def get_rooms():
@@ -37,4 +43,6 @@ def add_room(roomname):
     elif roomname in rooms:
         return DUPLICATE
     else:
+        rooms[roomname] = {"num_users": 0}
+        write_rooms(rooms)
         return OK
