@@ -4,8 +4,6 @@ DB_DIR = db
 REQ_DIR = .
 PYDOC = python3 -m pydoc -w
 
-Export TEST_MODE = 1
-
 FORCE:
 
 prod: tests github
