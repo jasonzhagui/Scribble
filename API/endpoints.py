@@ -44,7 +44,7 @@ class ListRooms(Resource):
         """
         rooms = db.get_rooms()
         if rooms is None:
-            raise (wz.NotFound("CHat room db not found."))
+            raise (wz.NotFound("Chat room db not found."))
         else:
             return rooms
 
@@ -56,15 +56,16 @@ class CreateRoom(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     def post(self, roomname):
         """
-        This method adds a room to the room db
+        This method adds a room to the room db.
         """
-        ret = db.get_rooms()
+        ret = db.add_room(roomname)
         if ret == db.NOT_FOUND:
-            raise (wz.NotFound("CHat room db not found."))
+            raise (wz.NotFound("Chat room db not found."))
         elif ret == db.DUPLICATE:
-            raise (wz.NotAcceptable("Chat room already exists"))
+            raise (wz.NotAcceptable("Chat room name already exists."))
 
 
 @api.route('/endpoints')
