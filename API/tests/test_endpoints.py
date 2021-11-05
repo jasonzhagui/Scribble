@@ -9,7 +9,7 @@ import random
 import API.endpoints as ep
 import db.db as db
 
-HUGE_NUM = 10000000000000  # any big number will do!
+HUGE_NUM = 100000000000000  # any big number will do!
 
 
 def new_room_name():
