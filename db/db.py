@@ -7,10 +7,14 @@ Gradually, we will fill in actual calls to our datastore.
 import json
 import os
 
+SCRIBBLE_HOME = os.environ["SCRIBBLE_HOME"]
+TEST_MODE = os.environ.get("TEST_MODE", 0)
+DB_DIR = f"{SCRIBBLE_HOME}/db"
 
-DEMO_HOME = os.environ["DEMO_HOME"]
-
-ROOMS_DB = f"{DEMO_HOME}/db/rooms.json"
+if TEST_MODE:
+    ROOMS_DB = f"{DB_DIR}/test_rooms.json"
+else:
+    ROOMS_DB = f"{DB_DIR}/rooms.json"
 
 OK = 0
 NOT_FOUND = 1
@@ -18,6 +22,9 @@ DUPLICATE = 2
 
 
 def write_rooms(rooms):
+    """
+    Write out the in-memory room list in proper DB format.
+    """
     with open(ROOMS_DB, 'w') as f:
         json.dump(rooms, f, indent=4)
 
