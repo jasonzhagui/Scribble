@@ -4,72 +4,94 @@ At first, it will just contain stubs that return fake data.
 Gradually, we will fill in actual calls to our datastore.
 """
 
-import json
 import os
+
+import db.db_connect as dbc
 
 SCRIBBLE_HOME = os.environ["SCRIBBLE_HOME"]
 TEST_MODE = os.environ.get("TEST_MODE", 0)
 
-
 if TEST_MODE:
-    DB_DIR = f"{SCRIBBLE_HOME}/db/test_dbs"
+    # this one should be changed!
+    DB_NAME = "chatDB"
 else:
-    DB_DIR = f"{SCRIBBLE_HOME}/db"
+    DB_NAME = "chatDB"
 
-ROOM_COLLECTION = f"{DB_DIR}/rooms.json"
-USER_COLLECTION = f"{DB_DIR}/users.json"
+ROOMS = "rooms"
+USERS = "users"
+
+# field names in our DB:
+USER_NM = "userName"
+ROOM_NM = "roomName"
+NUM_USERS = "num_users"
 
 OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
 
 
-def write_collection(perm_version, mem_version):
-    """
-    Write out the in-memory data collection in proper DB format.
-    """
-    with open(perm_version, 'w') as f:
-        json.dump(mem_version, f, indent=4)
+client = dbc.get_client()
+if client is None:
+    print("Failed to connect to MongoDB.")
+    exit(1)
 
-
-def read_collection(perm_version):
-    """
-    A function to read a colleciton off of disk.
-    """
-    try:
-        with open(perm_version) as file:
-            return json.loads(file.read())
-    except FileNotFoundError:
-        print(f"{perm_version} not found.")
-        return None
 
 def get_rooms():
     """
     A function to return a dictionary of all rooms.
     """
-    return read_collection(ROOM_COLLECTION)
+    return dbc.fetch_all(ROOMS, ROOM_NM)
+
+
+def room_exists(roomname):
+    """
+    See if a room with roomname is in the db.
+    Returns True of False.
+    """
+    rec = dbc.fetch_one(ROOMS, filters={ROOM_NM: roomname})
+    print(f"{rec=}")
+    return rec is not None
+
+
+def del_room(roomname):
+    """
+    Delete roomname from the db.
+    """
+    if not room_exists(roomname):
+        return NOT_FOUND
+    else:
+        dbc.del_one(ROOMS, filters={ROOM_NM: roomname})
+        return OK
+
+
+def add_room(roomname):
+    """
+    Add a room to the room database.
+    """
+    print(f"{roomname=}")
+    if room_exists(roomname):
+        return DUPLICATE
+    else:
+        dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
+        return OK
+
+
+def user_exists(username):
+    """
+    See if a user with username is in the db.
+    Returns True of False.
+    """
+    rec = dbc.fetch_one(USERS, filters={USER_NM: username})
+    print(f"{rec=}")
+    return rec is not None
 
 
 def get_users():
     """
     A function to return a dictionary of all users.
     """
-    return read_collection(USER_COLLECTION)
+    return dbc.fetch_all(USERS, USER_NM)
 
-
-def add_room(roomname):
-    """
-    add a room to the room database.
-    """
-    rooms = get_rooms()
-    if rooms is None:
-        return NOT_FOUND
-    elif roomname in rooms:
-        return DUPLICATE
-    else:
-        rooms[roomname] = {"num_users": 0}
-        write_collection(ROOM_COLLECTION, rooms)
-        return OK
 
 def add_user(username):
     """
@@ -77,12 +99,19 @@ def add_user(username):
     Until we are using a real DB, we have a potential
     race condition here.
     """
-    users = get_users()
-    if users is None:
-        return NOT_FOUND
-    elif username in users:
+    if user_exists(username):
         return DUPLICATE
     else:
-        users[username] = {}
-        write_collection(USER_COLLECTION, users)
+        dbc.insert_doc(USERS, {USER_NM: username})
+        return OK
+
+
+def del_user(username):
+    """
+    Delete username from the db.
+    """
+    if not user_exists(username):
+        return NOT_FOUND
+    else:
+        dbc.del_one(USERS, filters={USER_NM: username})
         return OK

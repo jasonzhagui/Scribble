@@ -2,14 +2,15 @@
 This file holds the tests for endpoints.py.
 """
 
-from unittest import TestCase, skip 
+from unittest import TestCase, skip
 from flask_restx import Resource, Api
 import random
 
 import API.endpoints as ep
 import db.data as db
 
-HUGE_NUM = 1000000000000000  # any big number will do!
+HUGE_NUM = 10000000000000  # any big number will do!
+
 
 def new_entity_name(entity_type):
     int_name = random.randint(0, HUGE_NUM)
@@ -43,7 +44,8 @@ class EndpointTestCase(TestCase):
 
     def test_create_room(self):
         """
-        Post-condition 1: return is a dictionary.
+        See if we can successfully create a new room.
+        Post-condition: room is in DB.
         """
         cr = ep.CreateRoom(Resource)
         new_room = new_entity_name("room")
