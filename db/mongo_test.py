@@ -16,7 +16,7 @@ insert_ret = this_collect.insert_many([{'filter_nm': 'bar1'},
                                       {'filter_nm': 'bar3'},
                                       {'filter_nm': 'bar4'},
                                       {'filter_nm': 'bar5'},
-                                      {'filter_nm'w: 'bar6'}])
+                                      {'filter_nm': 'bar6'}])
 insert_ret = this_collect.insert_one({'trees': 'yellow leaves'})
 print(f"{insert_ret=}")
 
