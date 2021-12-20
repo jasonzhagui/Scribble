@@ -1,13 +1,18 @@
-# Scribbles
+# Chatbot server
 
 ## Requirements
 
+- List chat rooms
 - Create a user
-- Allow users to generate random Scribbles
-- Keep track of Scribbles and their creators/owners
-- Trade Scribbles with other users
-- Ranking system based on rarity of features
-- List created Scribbles with filter system
+- Update a user
+- Delete a user
+- Allow user to enter chat room
+- Allow user to leave chat room
+- Greet the user
+- List users
+- Answer user questions
+- Recognize user has left
+- Post messages
 
 ## Design
 
@@ -17,4 +22,4 @@
 - Use Test-Driven-Development (TDD) to make sure we have testing.
 - Use Swagger for initial interaction with server.
 - Use Swagger, pydoc and good docstrings for documentation.
-- User can select different features and filter list of Scribbles in a checkbox filter format
+
