@@ -8,14 +8,7 @@ import os
 
 import db.db_connect as dbc
 
-SCRIBBLE_HOME = os.environ["SCRIBBLE_HOME"]
-TEST_MODE = os.environ.get("TEST_MODE", 0)
-
-if TEST_MODE:
-    # this one should be changed!
-    DB_NAME = "chatDB"
-else:
-    DB_NAME = "chatDB"
+DEMO_HOME = os.environ["SCRIBBLE_HOME"]
 
 ROOMS = "rooms"
 USERS = "users"
