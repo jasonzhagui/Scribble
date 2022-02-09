@@ -1,8 +1,22 @@
 {
-    "lemon": "google.com",
-    "lime": "google.com",
-    "strawberry": "google.com",
-    "watermelon": "google.com",
-    "orange": "google.com",
-    "blueberry": "google.com"
+    "head": {
+        "lemon": "google.com",
+        "strawberry": "google.com",
+        "watermelon": "google.com",
+        "lime": "google.com",
+        "blueberry": "google.com",
+        "orange": "google.com"
+    },
+
+    "body": {
+        "sweater": "google.com"
+    },
+
+    "eyes": {
+        "hearts": "google.com"
+    },
+
+    "mouth": {
+        "cigarette": "google.com"
+    }
 }
