@@ -66,5 +66,15 @@ def fetch_all(collect_nm, key_nm):
     return all_docs
 
 
+def fetch_all_as_dict(collect_nm, key_nm):
+    all_list = fetch_all(collect_nm, key_nm)
+    print(f'{all_list=}')
+    all_dict = {}
+    for doc in all_list:
+        print(f'{doc=}')
+        all_dict[doc[key_nm]] = doc[key_nm]
+    return all_dict
+
+
 def insert_doc(collect_nm, doc):
     client[db_nm][collect_nm].insert_one(doc)
