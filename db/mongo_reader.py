@@ -13,7 +13,5 @@ this_collect = client[dbc.db_nm][COLLECT_NAME]
 
 
 doc = client[dbc.db_nm][COLLECT_NAME].find_one({'layer': 'head'})
-#print(f"find one = {doc=}")
+# print(f"find one = {doc=}")
 print(doc["lemon"])
-
-

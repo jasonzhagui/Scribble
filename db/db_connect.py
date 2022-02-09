@@ -15,7 +15,7 @@ passwd = os.environ.get("MONGO_PASSWD", '')
 cloud_mdb = "mongodb+srv"
 db_params = "retryWrites=true&w=majority"
 
-db_nm = 'scribbleDB'
+db_nm = 'chatDB'
 if os.environ.get("TEST_MODE", ''):
     db_nm = "test_chatDB"
 
