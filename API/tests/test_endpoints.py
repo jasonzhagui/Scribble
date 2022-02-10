@@ -71,4 +71,6 @@ class EndpointTestCase(TestCase):
         ret = ll.get()
         print("hey")
         print(f'get {ret=}')
+        layers = db.get_layers_as_dict()
+        print(f'{layers=}')
         self.assertIsInstance(ret, list)

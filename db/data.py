@@ -55,6 +55,13 @@ def get_rooms_as_dict():
     return dbc.fetch_all_as_dict(ROOMS, ROOM_NM)
 
 
+def get_layers_as_dict():
+    """
+    A function to return a dictionary of all layers.
+    """
+    return dbc.fetch_all_as_dict(LAYERS, LAYER)
+
+
 def room_exists(roomname):
     """
     See if a room with roomname is in the db.
