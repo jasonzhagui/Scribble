@@ -53,7 +53,7 @@ def get_head_layers():
     """
     A function to return a list of all head layers.
     """
-    return dbc.fetch_all_as_dict(LAYERS, HEAD)
+    return dbc.fetch_one(LAYERS, filters={LAYER: HEAD})
 
 
 def get_rooms_as_dict():
