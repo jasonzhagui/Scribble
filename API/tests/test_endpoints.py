@@ -62,3 +62,11 @@ class EndpointTestCase(TestCase):
         lr = ep.ListRooms(Resource)
         ret = lr.get()
         self.assertIsInstance(ret, list)
+
+    def test_list_layers(self):
+        """
+        Post-condition 1: return is a list.
+        """
+        ll = ep.ListLayers(Resource)
+        ret = ll.get()
+        self.assertIsInstance(ret, list)
