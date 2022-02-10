@@ -70,4 +70,5 @@ class EndpointTestCase(TestCase):
         ll = ep.ListLayers(Resource)
         ret = ll.get()
         print("hey")
+        print(f'get {ret=}')
         self.assertIsInstance(ret, list)
