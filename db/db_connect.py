@@ -60,7 +60,7 @@ def del_one(collect_nm, filters={}):
 
 def fetch_all(collect_nm, key_nm):
     all_docs = []
-    for doc in client[db_nm][collect_nm].find():
+    for doc in client[db_nm][collect_nm][key_nm].find():
         all_docs.append(json.loads(bsutil.dumps(doc)))
     return all_docs
 
