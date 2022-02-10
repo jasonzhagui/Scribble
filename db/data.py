@@ -18,6 +18,11 @@ USER_NM = "userName"
 ROOM_NM = "roomName"
 NUM_USERS = "num_users"
 
+LAYERS = "layers"
+
+LAYER = "layer"
+
+
 OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
@@ -34,6 +39,13 @@ def get_rooms():
     A function to return a list of all rooms.
     """
     return dbc.fetch_all(ROOMS, ROOM_NM)
+
+
+def get_layers():
+    """
+    A function to return a list of all layers.
+    """
+    return dbc.fetch_all(LAYERS, LAYER)
 
 
 def get_rooms_as_dict():

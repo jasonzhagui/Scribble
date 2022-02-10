@@ -51,6 +51,24 @@ class ListRooms(Resource):
             return rooms
 
 
+@api.route('/layers/list')
+class ListLayers(Resource):
+    """
+    This endpoint returns a list of all layers.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    def get(self):
+        """
+        Returns a list of all layers.
+        """
+        layers = db.get_layers()
+        if layers is None:
+            raise (wz.NotFound("layers db not found."))
+        else:
+            return layers
+
+
 @api.route('/rooms/create/<roomname>')
 class CreateRoom(Resource):
     """
