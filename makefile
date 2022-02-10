@@ -4,10 +4,10 @@ prod: all_tests github
 
 github: FORCE
 	- git commit -a
-	git push origin master
+	git push origin main
 
 dev_env: FORCE
-	- ./setup.sh DEMO_HOME
+	- ./setup.sh SCRIBBLE_HOME
 	pip install -r $(REQ_DIR)/requirements-dev.txt
 
 all_tests: FORCE
@@ -17,3 +17,9 @@ all_tests: FORCE
 all_docs: FORCE
 	cd $(API_DIR); make docs
 	cd $(DB_DIR); make docs
+
+heroku_remote:
+	heroku git:remote -a scribble-art
+
+heroku_api_key:
+	heroku auth:token

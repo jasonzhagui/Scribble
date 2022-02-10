@@ -15,7 +15,7 @@ passwd = os.environ.get("MONGO_PASSWD", '')
 cloud_mdb = "mongodb+srv"
 db_params = "retryWrites=true&w=majority"
 
-db_nm = 'scribbleDB'
+db_nm = 'chatDB'
 if os.environ.get("TEST_MODE", ''):
     db_nm = "test_chatDB"
 
@@ -59,10 +59,9 @@ def del_one(collect_nm, filters={}):
 
 
 def fetch_all(collect_nm, key_nm):
-    all_docs = {}
+    all_docs = []
     for doc in client[db_nm][collect_nm].find():
-        # print(doc)
-        all_docs[doc[key_nm]] = json.loads(bsutil.dumps(doc))
+        all_docs.append(json.loads(bsutil.dumps(doc)))
     return all_docs
 
 

@@ -1,7 +1,7 @@
 """
 Get used to pymongo!
 """
-import db_connect as dbc
+import db.db_connect as dbc
 
 COLLECT_NAME = 'email'
 
@@ -15,8 +15,7 @@ insert_ret = this_collect.insert_many([{'filter_nm': 'bar1'},
                                       {'filter_nm': 'bar2'},
                                       {'filter_nm': 'bar3'},
                                       {'filter_nm': 'bar4'},
-                                      {'filter_nm': 'bar5'},
-                                      {'filter_nm': 'bar6'}])
+                                      {'filter_nm': 'bar5'}])
 insert_ret = this_collect.insert_one({'trees': 'yellow leaves'})
 print(f"{insert_ret=}")
 
