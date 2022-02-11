@@ -17,4 +17,3 @@ doc = client[dbc.db_nm][COLLECT_NAME].find_one({'layer': 'head'})
 
 
 print(doc["lemon"])
-
