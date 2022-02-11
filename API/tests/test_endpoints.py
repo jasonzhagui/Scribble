@@ -70,8 +70,12 @@ class EndpointTestCase(TestCase):
         """
         ll = ep.ListLayers(Resource)
         ret = ll.get()
-        print("hey")
-        print(f'get {ret=}')
-        layers = db.get_layers_as_dict()
-        print(f'{layers=}')
+        self.assertIsInstance(ret, list)
+
+    def test_list_head_layers(self):
+        """
+        Post-condition 1: return is a list.
+        """
+        ll = ep.ListAllHeads(Resource)
+        ret = ll.get()
         self.assertIsInstance(ret, list)
