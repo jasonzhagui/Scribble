@@ -69,7 +69,7 @@ class ListLayers(Resource):
             return layers
 
 
-@api.route('/layers/head/list')
+@api.route('/layers/heads')
 class ListAllHeads(Resource):
     """
     This endpoint returns a list of all head layers.
