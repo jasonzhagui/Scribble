@@ -1,25 +1,14 @@
-# Chatbot server
+# Scribble
 
 ## Requirements
 
-- List chat rooms
 - Create a user
-- Update a user
-- Delete a user
-- Allow user to enter chat room
-- Allow user to leave chat room
-- Greet the user
-- List users
-- Answer user questions
-- Recognize user has left
-- Post messages
+- Allow users to generate random scribbles
+- Keep track of scribbles and their creators/owners
+- Trade scribbles with other users
+- Ranking system based on rarity of features
+- List created scribbles with filter system
 
 ## Design
 
-- Use flask_restx to build an API server
-- Multiple clients possible -- TBD
-- Handle each major requirement with an API endpoint
-- Use Test-Driven-Development (TDD) to make sure we have testing.
-- Use Swagger for initial interaction with server.
-- Use Swagger, pydoc and good docstrings for documentation.
-
+- User can select different features and filter list of scribbles in a checkbox filter format
