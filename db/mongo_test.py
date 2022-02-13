@@ -3,7 +3,7 @@ Get used to pymongo!
 """
 import db.db_connect as dbc
 
-COLLECT_NAME = 'email'
+COLLECT_NAME = 'scribbleDB'
 
 
 client = dbc.get_client()
