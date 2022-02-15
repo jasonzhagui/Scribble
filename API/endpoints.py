@@ -87,7 +87,7 @@ class ListAllHeads(Resource):
             return head_layers
 
 
-@api.route('/layers/<layer>')
+@api.route('/layers/<category>')
 class ListSpecificLayer(Resource):
     """
     This endpoint returns a list of layers by category input.
