@@ -120,7 +120,7 @@ class GetSpecificLayerName(Resource):
         if layer is None:
             raise (wz.NotFound("layers db not found."))
         else:
-            return layer[name]
+            return layer[0][name]
 
 
 @api.route('/rooms/create/<roomname>')
