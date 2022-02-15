@@ -61,7 +61,7 @@ def get_specific_layer(category):
      A function to return a list of layers by category input.
     """
     return dbc.fetch_one(LAYERS, filters={LAYER: category})
-    
+
 
 def get_rooms_as_dict():
     """
