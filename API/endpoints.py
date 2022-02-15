@@ -105,6 +105,24 @@ class ListSpecificLayer(Resource):
             return layer
 
 
+@api.route('/layers/<category>/<name>')
+class GetSpecificLayerName(Resource):
+    """
+    This endpoint returns a url link.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    def get(self, category, name):
+        """
+        Returns a url link.
+        """
+        layer = db.get_specific_layer(category)
+        if layer is None:
+            raise (wz.NotFound("layers db not found."))
+        else:
+            return layer[name]
+
+
 @api.route('/rooms/create/<roomname>')
 class CreateRoom(Resource):
     """
