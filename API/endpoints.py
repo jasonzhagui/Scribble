@@ -85,6 +85,7 @@ class ListSpecificLayer(Resource):
         if layer is None:
             raise (wz.NotFound("layers db not found."))
         else:
+            del layer[0]["_id"]
             return layer
 
 
