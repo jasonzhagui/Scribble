@@ -38,10 +38,10 @@ class EndpointTestCase(TestCase):
         ret = ll.get()
         self.assertIsInstance(ret, list)
 
-    def test_list_head_layers(self):
+    '''def test_list_head_layers(self):
         """
         Post-condition 1: return is a list.
         """
         ll = ep.ListAllHeads(Resource)
         ret = ll.get()
-        self.assertIsInstance(ret, list)
+        self.assertIsInstance(ret, list)'''

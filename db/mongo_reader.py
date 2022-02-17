@@ -12,3 +12,5 @@ doc = client[dbc.db_nm]['layers'].find_one({'layer': 'head'})
 
 head_docs = (json.loads(bsutil.dumps(doc)))
 print(head_docs['lemon'])
+del head_docs['_id']
+print(head_docs)
