@@ -66,7 +66,8 @@ class ListAllHeads(Resource):
         if head_layers is None:
             raise (wz.NotFound("head layers db not found."))
         else:
-            return head_layers[0].pop("_id")
+            del head_layers[0]["_id"]
+            return head_layers
 
 
 @api.route('/layers/<category>')
