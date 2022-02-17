@@ -123,6 +123,27 @@ class GetSpecificLayerName(Resource):
             return layer[0][name]
 
 
+@api.route('/layers/create/<category>/<name>/<link>')
+class CreateLayer(Resource):
+    """
+    This class supports adding a layer.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key')
+    def post(self, category, name, link):
+        """
+        This method adds a layer to the layer db.
+        """
+        ret = db.add_layer(category, name, link)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("layer db not found."))
+        elif ret == db.DUPLICATE:
+            raise (wz.NotAcceptable(f"layer {name} already exists."))
+        else:
+            return f"{name} added."
+
+
 @api.route('/rooms/create/<roomname>')
 class CreateRoom(Resource):
     """

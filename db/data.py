@@ -80,6 +80,17 @@ def room_exists(roomname):
     return rec is not None
 
 
+def layer_exists(category, name):
+    """
+    See if a layer with name is in the db.
+    Returns True or False.
+    """
+    rec = dbc.fetch_one(LAYERS, filters={LAYER: category}) 
+    rec = rec[0].get(name)
+    print(f"{rec=}")
+    return rec is not None
+
+
 def del_room(roomname):
     """
     Delete roomname from the db.
@@ -100,6 +111,18 @@ def add_room(roomname):
         return DUPLICATE
     else:
         dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
+        return OK
+
+
+def add_layer(category, name, link):
+    """
+    Add a layer to the layer database.
+    """
+    print(f"{name=}")
+    if layer_exists(category, name):
+        return DUPLICATE
+    else:
+        dbc.insert_doc(LAYER, {LAYER: category, name: link})
         return OK
 
 
