@@ -85,7 +85,7 @@ def layer_exists(category, name):
     See if a layer with name is in the db.
     Returns True or False.
     """
-    rec = dbc.fetch_one(LAYERS, filters={LAYER: category}) 
+    rec = dbc.fetch_one(LAYERS, filters={LAYER: category})
     rec = rec[0].get(name)
     print(f"{rec=}")
     return rec is not None
