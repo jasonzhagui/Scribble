@@ -33,24 +33,6 @@ class HelloWorld(Resource):
         return {HELLO: WORLD}
 
 
-@api.route('/rooms/list')
-class ListRooms(Resource):
-    """
-    This endpoint returns a list of all rooms.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get(self):
-        """
-        Returns a list of all chat rooms.
-        """
-        rooms = db.get_rooms()
-        if rooms is None:
-            raise (wz.NotFound("Chat room db not found."))
-        else:
-            return rooms
-
-
 @api.route('/layers/list')
 class ListLayers(Resource):
     """
@@ -200,65 +182,4 @@ class Endpoints(Resource):
         """
         endpoints = sorted(rule.rule for rule in api.app.url_map.iter_rules())
         return {"Available endpoints": endpoints}
-
-
-@api.route('/users/list')
-class ListUsers(Resource):
-    """
-    This endpoint returns a list of all users.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get(self):
-        """
-        Returns a list of all users.
-        """
-        users = db.get_users()
-        if users is None:
-            raise (wz.NotFound("User db not found."))
-        else:
-            return users
-
-
-@api.route('/users/create/<username>')
-class CreateUser(Resource):
-    """
-    This class supports adding a user to the chat room.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key')
-    def post(self, username):
-        """
-        This method adds a user to the chatroom.
-        """
-        """
-        This method adds a room to the room db.
-        """
-        ret = db.add_user(username)
-        if ret == db.NOT_FOUND:
-            raise (wz.NotFound("User db not found."))
-        elif ret == db.DUPLICATE:
-            raise (wz.NotAcceptable("User name already exists."))
-        return f"{username} added."
-
-
-@api.route('/users/delete/<username>')
-class DeleteUser(Resource):
-    """
-    This class enables deleting a chat user.
-    While 'Forbidden` is a possible return value, we have not yet implemented
-    a user privileges section, so it isn't used yet.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.FORBIDDEN, 'A user can only delete themselves.')
-    def post(self, username):
-        """
-        This method deletes a user from the user db.
-        """
-        ret = db.del_user(username)
-        if ret == db.NOT_FOUND:
-            raise (wz.NotFound(f"Chat participant {username} not found."))
-        else:
-            return f"{username} deleted."
+        
