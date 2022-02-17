@@ -80,3 +80,7 @@ def fetch_all_as_dict(collect_nm, key_nm):
 
 def insert_doc(collect_nm, doc):
     client[db_nm][collect_nm].insert_one(doc)
+
+
+def aggregate_doc(collect_nm, category, doc):
+    client[db_nm][collect_nm][category].aggregate(doc)
