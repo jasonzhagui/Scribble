@@ -10,7 +10,9 @@ client = dbc.get_client()
 head_docs = []
 doc = client[dbc.db_nm]['layers'].find_one({'layer': 'head'})
 
-head_docs = (json.loads(bsutil.dumps(doc)))
-print(head_docs['lemon'])
-del head_docs['_id']
+head_docs.append(json.loads(bsutil.dumps(doc)))
+print(type(head_docs))
+head_docs[0].pop("_id")
+
+
 print(head_docs)
