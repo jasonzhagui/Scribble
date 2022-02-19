@@ -122,7 +122,7 @@ def add_layer(category, name, link):
     if layer_exists(category, name):
         return DUPLICATE
     else:
-        dbc.update_doc(LAYER, {LAYER: category}, {"$set": {name: link}})
+        dbc.update_doc(LAYERS, {LAYER: category}, {"$set": {name: link}})
         return OK
 
 
