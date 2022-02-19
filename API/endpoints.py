@@ -119,6 +119,8 @@ class CreateLayer(Resource):
         """
         This method adds a layer to the layer db.
         """
+        if category not in db.get_layers_as_list():
+            raise (wz.NotAcceptable(f"{category} is not a valid category"))
         ret = db.add_layer(category, name, link)
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("layer db not found."))
