@@ -47,7 +47,7 @@ def get_layers():
     A function to return a list of all layers.
     """
     return dbc.fetch_all(LAYERS, LAYER)
-    
+ 
 
 def get_layers_as_dict():
     """
