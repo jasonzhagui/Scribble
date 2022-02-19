@@ -82,5 +82,5 @@ def insert_doc(collect_nm, doc):
     client[db_nm][collect_nm].insert_one(doc)
 
 
-def aggregate_doc(collect_nm, category, doc):
-    client[db_nm][collect_nm][category].aggregate(doc)
+def update_doc(collect_nm, doc, field):
+    client[db_nm][collect_nm].update_one(doc, field)
