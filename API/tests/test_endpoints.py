@@ -14,7 +14,7 @@ HUGE_NUM = 10000000000000  # any big number will do!
 
 def new_entity_name(entity_type):
     int_name = random.randint(0, HUGE_NUM)
-    return f"new {entity_type}" + str(int_name)
+    return f"{entity_type}" + str(int_name)
 
 
 class EndpointTestCase(TestCase):
@@ -45,3 +45,19 @@ class EndpointTestCase(TestCase):
         ll = ep.ListAllHeads(Resource)
         ret = ll.get()
         self.assertIsInstance(ret, list)
+
+    def test_create_layers(self):
+        """
+        See if we can successfully create a new layer.
+        Post-condition: room is in DB.
+        """
+        cl = ep.CreateLayer(Resource)
+        new_category = random.choice(db.get_layers_as_list())
+        new_name = new_entity_name("name")
+        new_link = new_entity_name("link")
+        ret = cl.post(new_category, new_name, new_link)
+        print(f'post {ret=}')
+        layers = db.get_all_layers_as_dict()
+        print(f'{layers=}')
+        self.assertIn(new_name, layers)
+

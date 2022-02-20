@@ -94,3 +94,13 @@ def insert_doc(collect_nm, doc):
 
 def update_doc(collect_nm, doc, field):
     client[db_nm][collect_nm].update_one(doc, field)
+
+
+def fetch_all_layers_as_dict(collect_nm, key_nm):
+    all_list = fetch_all(collect_nm, key_nm)
+    all_dict = {}
+    for doc in all_list:
+        for field in doc:
+            if(field != '_id' and field != 'layer'):
+                all_dict[field] = doc[field]
+    return all_dict

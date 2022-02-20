@@ -114,7 +114,7 @@ class CreateLayer(Resource):
     """
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'duplicate key/invalid category')
     def post(self, category, name, link):
         """
         This method adds a layer to the layer db.

@@ -56,6 +56,13 @@ def get_layers_as_dict():
     return dbc.fetch_all_as_dict(LAYERS, LAYER)
 
 
+def get_all_layers_as_dict():
+    """
+    A function to return a dictionary of all items.
+    """
+    return dbc.fetch_all_layers_as_dict(LAYERS, LAYER)
+
+
 def get_layers_as_list():
     """
     A function to return a dictionary of all layers.
@@ -77,23 +84,6 @@ def get_specific_layer(category):
     return dbc.fetch_one(LAYERS, filters={LAYER: category})
 
 
-def get_rooms_as_dict():
-    """
-    A function to return a dictionary of all rooms.
-    """
-    return dbc.fetch_all_as_dict(ROOMS, ROOM_NM)
-
-
-def room_exists(roomname):
-    """
-    See if a room with roomname is in the db.
-    Returns True of False.
-    """
-    rec = dbc.fetch_one(ROOMS, filters={ROOM_NM: roomname})
-    print(f"{rec=}")
-    return rec is not None
-
-
 def layer_exists(category, name):
     """
     See if a layer with name is in the db.
@@ -103,29 +93,6 @@ def layer_exists(category, name):
     rec = rec[0].get(name)
     print(f"{rec=}")
     return rec is not None
-
-
-def del_room(roomname):
-    """
-    Delete roomname from the db.
-    """
-    if not room_exists(roomname):
-        return NOT_FOUND
-    else:
-        dbc.del_one(ROOMS, filters={ROOM_NM: roomname})
-        return OK
-
-
-def add_room(roomname):
-    """
-    Add a room to the room database.
-    """
-    print(f"{roomname=}")
-    if room_exists(roomname):
-        return DUPLICATE
-    else:
-        dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
-        return OK
 
 
 def add_layer(category, name, link):
