@@ -67,6 +67,7 @@ class ListAllHeads(Resource):
             raise (wz.NotFound("head layers db not found."))
         else:
             del head_layers[0]["_id"]
+            del head_layers[0]["layer"]
             return head_layers
 
 
@@ -86,6 +87,7 @@ class ListSpecificLayer(Resource):
             raise (wz.NotFound("layers db not found."))
         else:
             del layer[0]["_id"]
+            del layer[0]["layer"]
             return layer
 
 
