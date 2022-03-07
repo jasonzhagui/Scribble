@@ -49,6 +49,10 @@ def get_layers():
     return dbc.fetch_all(LAYERS)
 
 
+def get_layers_for_dropdown():
+    return dbc.fetch_for_dropdown(LAYERS)
+
+
 def get_layers_as_dict():
     """
     A function to return a dictionary of all layers.

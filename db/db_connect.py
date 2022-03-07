@@ -83,6 +83,17 @@ def fetch_all_raw(collect_nm, key_nm):
     return all_docs
 
 
+def fetch_for_dropdown(collect_nm):
+    lst = []
+    raw = fetch_all(collect_nm)
+    for doc in raw:
+        temp = []
+        for doc2 in list(doc.keys()):
+            temp.append({"value": doc[doc2], "label": doc2})
+        lst.append(temp)
+    return lst
+
+
 def fetch_all_as_dict(collect_nm, key_nm):
     all_list = fetch_all_raw(collect_nm, key_nm)
     print(f'{all_list=}')

@@ -92,7 +92,7 @@ class DropdownListLayers(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     def get(self):
-        layers = db.get_layers()
+        layers = db.get_layers_for_dropdown()
         if layers is None:
             raise (wz.NotFound("layers db not found."))
         else:
