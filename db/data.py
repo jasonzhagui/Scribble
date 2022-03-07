@@ -39,14 +39,14 @@ def get_rooms():
     """
     A function to return a list of all rooms.
     """
-    return dbc.fetch_all(ROOMS, ROOM_NM)
+    return dbc.fetch_all_raw(ROOMS, ROOM_NM)
 
 
 def get_layers():
     """
     A function to return a list of all layers.
     """
-    return dbc.fetch_all(LAYERS, LAYER)
+    return dbc.fetch_all(LAYERS)
 
 
 def get_layers_as_dict():
@@ -121,7 +121,7 @@ def get_users():
     """
     A function to return a list of all users.
     """
-    return dbc.fetch_all(USERS, USER_NM)
+    return dbc.fetch_all_raw(USERS, USER_NM)
 
 
 def add_user(username):

@@ -63,7 +63,7 @@ def del_one(collect_nm, filters={}):
     return client[db_nm][collect_nm].delete_one(filters)
 
 
-def fetch_all(collect_nm, key_nm):
+def fetch_all(collect_nm):
     all_docs = []
     for doc in client[db_nm][collect_nm].find():
         docs = json.loads(bsutil.dumps(doc))
@@ -74,8 +74,17 @@ def fetch_all(collect_nm, key_nm):
     return all_docs
 
 
+def fetch_all_raw(collect_nm, key_nm):
+    all_docs = []
+    for doc in client[db_nm][collect_nm].find():
+        docs = json.loads(bsutil.dumps(doc))
+        all_docs.append(docs)
+
+    return all_docs
+
+
 def fetch_all_as_dict(collect_nm, key_nm):
-    all_list = fetch_all(collect_nm, key_nm)
+    all_list = fetch_all_raw(collect_nm, key_nm)
     print(f'{all_list=}')
     all_dict = {}
     for doc in all_list:
@@ -85,7 +94,7 @@ def fetch_all_as_dict(collect_nm, key_nm):
 
 
 def fetch_all_as_list(collect_nm, key_nm):
-    all_list = fetch_all(collect_nm, key_nm)
+    all_list = fetch_all_raw(collect_nm, key_nm)
     all_dict = {}
     for doc in all_list:
         all_dict[doc[key_nm]] = doc[key_nm]
@@ -103,7 +112,7 @@ def update_doc(collect_nm, doc, field):
 
 
 def fetch_all_layers_as_dict(collect_nm, key_nm):
-    all_list = fetch_all(collect_nm, key_nm)
+    all_list = fetch_all_raw(collect_nm, key_nm)
     all_dict = {}
     for doc in all_list:
         for field in doc:
