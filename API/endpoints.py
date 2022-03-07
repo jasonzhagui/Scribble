@@ -87,7 +87,7 @@ class ListSpecificLayer(Resource):
             return layer
 
 
-@api.route('/layers/<dropdownList>')
+@api.route('/layers/dropdownList')
 class DropdownListLayers(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
