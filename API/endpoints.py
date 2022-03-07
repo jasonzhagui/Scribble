@@ -87,6 +87,18 @@ class ListSpecificLayer(Resource):
             return layer
 
 
+@api.route('/layers/<dropdownList>')
+class DropdownListLayers(Resource):
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    def get(self):
+        layers = db.get_layers()
+        if layers is None:
+            raise (wz.NotFound("layers db not found."))
+        else:
+            return layers
+
+
 @api.route('/layers/<category>/<name>')
 class GetSpecificLayerName(Resource):
     """
