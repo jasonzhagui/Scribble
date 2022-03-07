@@ -61,3 +61,12 @@ class EndpointTestCase(TestCase):
         print(f'{layers=}')
         self.assertIn(new_name, layers)
 
+
+    def test_dropdown_list_layers(self):
+        """
+        Post-condition 1: return is a list.
+        """
+        dll = ep.DropdownListLayers(Resource)
+        ret = dll.get()
+        self.assertIsInstance(ret, list)
+
