@@ -51,6 +51,8 @@ def fetch_one(collect_nm, filters={}):
     docs = []
     doc = client[db_nm][collect_nm].find_one(filters)
     docs.append(json.loads(bsutil.dumps(doc)))
+    del docs[0]["_id"]
+    del docs[0]["layer"]
     return docs
 
 
