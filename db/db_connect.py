@@ -66,7 +66,11 @@ def del_one(collect_nm, filters={}):
 def fetch_all(collect_nm, key_nm):
     all_docs = []
     for doc in client[db_nm][collect_nm].find():
-        all_docs.append(json.loads(bsutil.dumps(doc)))
+        docs = json.loads(bsutil.dumps(doc))
+        del docs["_id"]
+        del docs["layer"]
+        all_docs.append(docs)
+
     return all_docs
 
 
