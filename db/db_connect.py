@@ -46,13 +46,24 @@ def get_client():
 
 def fetch_one(collect_nm, filters={}):
     """
-    Fetch one record that meets filters.
+    Fetch one record that meets filters for layers.
     """
     docs = []
     doc = client[db_nm][collect_nm].find_one(filters)
     docs.append(json.loads(bsutil.dumps(doc)))
     del docs[0]["_id"]
     del docs[0]["layer"]
+    return docs
+
+
+def fetch_one_raw(collect_nm, filters={}):
+    """
+    Fetch one record that meets filters.
+    """
+    docs = []
+    doc = client[db_nm][collect_nm].find_one(filters)
+    docs.append(json.loads(bsutil.dumps(doc)))
+    del docs[0]["_id"]
     return docs
 
 

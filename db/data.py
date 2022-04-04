@@ -14,7 +14,7 @@ ROOMS = "rooms"
 USERS = "users"
 
 # field names in our DB:
-USER_NM = "userName"
+USER_NM = "username"
 ROOM_NM = "roomName"
 NUM_USERS = "num_users"
 
@@ -116,7 +116,8 @@ def user_exists(username):
     See if a user with username is in the db.
     Returns True of False.
     """
-    rec = dbc.fetch_one(USERS, filters={USER_NM: username})
+    rec = dbc.fetch_one_raw(USERS, filters={USER_NM: username})
+    rec = rec[0].get(username)
     print(f"{rec=}")
     return rec is not None
 
@@ -150,3 +151,12 @@ def del_user(username):
     else:
         dbc.del_one(USERS, filters={USER_NM: username})
         return OK
+
+    
+def get_specific_user(username):
+    """
+    See if a user with username is in the db.
+    Returns username and password if exists.
+    """
+    return dbc.fetch_one_raw(USERS, filters={USER_NM: username})
+

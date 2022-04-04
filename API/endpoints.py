@@ -183,6 +183,23 @@ class DeleteRoom(Resource):
             return f"{roomname} deleted."
 
 
+@api.route('/user/<username>')
+class GetUser(Resource):
+    """
+    This class supports adding a chat room.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'Wrong Credentials')
+    
+    def get(self, username):
+   
+        user = db.get_specific_user(username)
+        if user is None:
+            raise (wz.NotFound("layers db not found."))
+        else:
+            return user
+
 @api.route('/endpoints')
 class Endpoints(Resource):
     """
