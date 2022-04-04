@@ -184,7 +184,7 @@ class DeleteRoom(Resource):
 
 
 @api.route('/user/<username>/<password>')
-class GetUser(Resource):
+class CheckCredentials(Resource):
     """
     This endpoint returns a user.
     """

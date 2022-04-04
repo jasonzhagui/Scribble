@@ -61,7 +61,6 @@ class EndpointTestCase(TestCase):
         print(f'{layers=}')
         self.assertIn(new_name, layers)
 
-
     def test_dropdown_list_layers(self):
         """
         Post-condition 1: return is a list.
@@ -70,3 +69,11 @@ class EndpointTestCase(TestCase):
         ret = dll.get()
         self.assertIsInstance(ret, list)
 
+    def test_check_credentials(self):
+        """
+        See if we can successfully check inputted credentials.
+        Post-condition: bool.
+        """
+        cc = ep.CheckCredentials(Resource)
+        ret = cc.get("test", "password")
+        self.assertIsInstance(ret, bool)
