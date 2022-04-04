@@ -62,9 +62,12 @@ def fetch_one_raw(collect_nm, filters={}):
     """
     docs = []
     doc = client[db_nm][collect_nm].find_one(filters)
-    docs.append(json.loads(bsutil.dumps(doc)))
-    del docs[0]["_id"]
-    return docs
+    if doc is not None:
+        docs.append(json.loads(bsutil.dumps(doc)))
+        del docs[0]["_id"]
+        return docs
+    elif doc is None:
+        return None
 
 
 def del_one(collect_nm, filters={}):

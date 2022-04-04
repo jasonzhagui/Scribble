@@ -75,5 +75,17 @@ class EndpointTestCase(TestCase):
         Post-condition: bool.
         """
         cc = ep.CheckCredentials(Resource)
-        ret = cc.get("test", "password")
+
+        username = ["test"]
+        password = ["password"]
+        username.append(new_entity_name("user"))
+        password.append(new_entity_name("pass"))
+
+        user = random.choice(username)	
+        passw = random.choice(password)
+
+        print("Username: ", user)
+        print("Password: ", passw)
+        ret = cc.get(user, passw)
+        print("Credentials: " + str(ret))
         self.assertIsInstance(ret, bool)

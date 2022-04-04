@@ -193,10 +193,7 @@ class CheckCredentials(Resource):
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'Wrong Credentials')
     def get(self, username, password):
         ret = db.check_credentials(username, password)
-        if ret == db.NOT_FOUND:
-            raise (wz.NotFound("Invalid Credentials"))
-        else:
-            return True
+        return ret
 
 
 @api.route('/endpoints')
