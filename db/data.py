@@ -162,7 +162,7 @@ def get_specific_user(username):
 
 
 def check_credentials(username, password):
-    doc =  dbc.fetch_one_raw(USERS, filters={USER_NM: username})
+    doc = dbc.fetch_one_raw(USERS, filters={USER_NM: username})
     if password == doc[0].get(password):
         return OK
     else:
