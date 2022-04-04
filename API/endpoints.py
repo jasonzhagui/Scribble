@@ -183,7 +183,7 @@ class DeleteRoom(Resource):
             return f"{roomname} deleted."
 
 
-@api.route('/user/<username>')
+@api.route('/user/<username>/<password>')
 class GetUser(Resource):
     """
     This endpoint returns a user.
@@ -191,12 +191,12 @@ class GetUser(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'Wrong Credentials')
-    def get(self, username):
-        user = db.get_specific_user(username)
-        if user is None:
-            raise (wz.NotFound("layers db not found."))
+    def get(self, username, password):
+        ret = db.check_credentials(username, password)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("Invalid Credentials"))
         else:
-            return user
+            return True
 
 
 @api.route('/endpoints')

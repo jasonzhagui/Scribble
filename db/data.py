@@ -159,3 +159,11 @@ def get_specific_user(username):
     Returns username and password if exists.
     """
     return dbc.fetch_one_raw(USERS, filters={USER_NM: username})
+
+
+def check_credentials(username, password):
+    doc =  dbc.fetch_one_raw(USERS, filters={USER_NM: username})
+    if password == doc[0].get(password):
+        return OK
+    else:
+        return NOT_FOUND
