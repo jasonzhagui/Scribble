@@ -196,6 +196,20 @@ class CheckCredentials(Resource):
         return ret
 
 
+@api.route('/user/register/<username>/<password>')
+class Register(Resource):
+    """
+    This endpoint adds a new user to the database
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'Duplicate Username')
+    def post(self, username, password):
+        ret = db.add_user(username, password)
+        if ret == db.DUPLICATE:
+            raise (wz.NotAcceptable("Username already exists."))
+        return f"{username} added."
+
+
 @api.route('/endpoints')
 class Endpoints(Resource):
     """

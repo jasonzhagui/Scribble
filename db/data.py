@@ -15,6 +15,8 @@ USERS = "users"
 
 # field names in our DB:
 USER_NM = "username"
+PASSWORD = "password"
+
 ROOM_NM = "roomName"
 NUM_USERS = "num_users"
 
@@ -117,7 +119,6 @@ def user_exists(username):
     Returns True of False.
     """
     rec = dbc.fetch_one_raw(USERS, filters={USER_NM: username})
-    rec = rec[0].get(username)
     print(f"{rec=}")
     return rec is not None
 
@@ -129,7 +130,7 @@ def get_users():
     return dbc.fetch_all_raw(USERS, USER_NM)
 
 
-def add_user(username):
+def add_user(username, password):
     """
     Add a user to the user database.
     Until we are using a real DB, we have a potential
@@ -138,7 +139,7 @@ def add_user(username):
     if user_exists(username):
         return DUPLICATE
     else:
-        dbc.insert_doc(USERS, {USER_NM: username})
+        dbc.insert_doc(USERS, {USER_NM: username, PASSWORD: password})
         return OK
 
 
@@ -162,10 +163,13 @@ def get_specific_user(username):
 
 
 def check_credentials(username, password):
+    """
+    Check the username and password input against what's in the database
+    """
     doc = dbc.fetch_one_raw(USERS, filters={USER_NM: username})
     if doc is None:
         return False
-    elif password != doc[0].get(password):
+    elif password != doc[0].get(PASSWORD):
         return False
-    elif password == doc[0].get(password):
+    elif password == doc[0].get(PASSWORD):
         return True
