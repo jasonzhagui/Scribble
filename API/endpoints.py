@@ -219,7 +219,9 @@ class CreateScribble(Resource):
     def post(self, username, body, head, eyes, mouth):
 
         ret = db.add_scribble(username, body, head, eyes, mouth)
-        if ret == db.OK:
+        if ret == db.DUPLICATE:
+            raise (wz.NotAcceptable("Scribble already exists."))
+        elif ret == db.OK:
             return f"{username} added a new Scribble."
 
 

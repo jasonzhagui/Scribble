@@ -184,5 +184,14 @@ def add_scribble(username, body, head, eyes, mouth):
             "head": lst[1][head],
             "eyes": lst[2][eyes],
             "mouth": lst[3][mouth]}
+
+    all_list = dbc.fetch_all_raw(SCRIBBLES, username)
+
+    for i in range(len(all_list)):
+        item = all_list[i]
+        del item["_id"]
+        if doc == item:
+            return DUPLICATE
+
     dbc.insert_doc(SCRIBBLES, doc)
     return OK
