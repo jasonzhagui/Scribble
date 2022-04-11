@@ -195,3 +195,11 @@ def add_scribble(username, body, head, eyes, mouth):
 
     dbc.insert_doc(SCRIBBLES, doc)
     return OK
+
+
+def get_scribbles(username):
+    doc = dbc.fetch_all_raw(SCRIBBLES, username)
+    for item in doc:
+        del item["_id"]
+        del item["username"]
+    return doc

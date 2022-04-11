@@ -225,6 +225,20 @@ class CreateScribble(Resource):
             return f"{username} added a new Scribble."
 
 
+@api.route('/scribbles/<username>')
+class GetScribbles(Resource):
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.FORBIDDEN,
+                  'Only the owner of a room can delete it.')
+    def get(self, username):
+        scribbles = db.get_scribbles(username)
+        if scribbles is None:
+            raise (wz.NotFound("Scribble db not found."))
+        else:
+            return scribbles
+
+
 @api.route('/endpoints')
 class Endpoints(Resource):
     """
