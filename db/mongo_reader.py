@@ -23,10 +23,15 @@ print("hey")
 print(f"{rec=}")
  '''
 
+docs = []
+doc = client[dbc.db_nm]['users'].find_one({'username': 'uigutg'})
+if doc is not None:
+    docs.append(json.loads(bsutil.dumps(doc)))
+    del docs[0]["_id"]
+    print(docs)
+elif doc is None:
+    print(docs)
 
-
-all_list = dbc.fetch_all_raw("scribbles", "username")
-
-
-
-print(all_list[0][0])
+print("----")
+rec = docs[0].get("username")
+print(f"{rec=}")
