@@ -11,7 +11,6 @@ import db.db_connect as dbc
 SCRIBBLE_HOME = os.environ["SCRIBBLE_HOME"]
 
 ROOMS = "rooms"
-USERS = "users"
 
 # field names in our DB:
 USER_NM = "username"
@@ -20,7 +19,9 @@ PASSWORD = "password"
 ROOM_NM = "roomName"
 NUM_USERS = "num_users"
 
+USERS = "users"
 LAYERS = "layers"
+SCRIBBLES = "scribbles"
 
 LAYER = "layer"
 HEAD = "head"
@@ -173,3 +174,15 @@ def check_credentials(username, password):
         return False
     elif password == doc[0].get(PASSWORD):
         return True
+
+
+def add_scribble(username, body, head, eyes, mouth):
+    lst = get_layers()
+    doc = {
+            "username": username,
+            "body": lst[0][body],
+            "head": lst[1][head],
+            "eyes": lst[2][eyes],
+            "mouth": lst[3][mouth]}
+    dbc.insert_doc(SCRIBBLES, doc)
+    return OK

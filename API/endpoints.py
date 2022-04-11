@@ -210,6 +210,19 @@ class Register(Resource):
         return f"{username} added."
 
 
+@api.route('/scribbles/create/<username>/<body>/<head>/<eyes>/<mouth>')
+class CreateScribble(Resource):
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.FORBIDDEN,
+                  'Only the owner of a room can delete it.')
+    def post(self, username, body, head, eyes, mouth):
+
+        ret = db.add_scribble(username, body, head, eyes, mouth)
+        if ret == db.OK:
+            return f"{username} added a new Scribble."
+
+
 @api.route('/endpoints')
 class Endpoints(Resource):
     """
