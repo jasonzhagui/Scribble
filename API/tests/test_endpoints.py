@@ -8,6 +8,7 @@ import random
 
 import API.endpoints as ep
 import db.data as db
+import db.db_connect as dbc
 
 HUGE_NUM = 10000000000000  # any big number will do!
 
@@ -103,3 +104,27 @@ class EndpointTestCase(TestCase):
         users = db.get_specific_user(new_user)
         print(f'{users=}')
         self.assertEqual(new_user, users[0]['username'])
+
+    def test_create_scribble(self):
+        """
+        See if we can successfully add a scribble.
+        Post-condition: scribble is in db.
+        """
+        cs = ep.CreateScribble(Resource)
+        lst = db.get_layers()
+        username = new_entity_name("user")
+        body = random.choice(list(lst[0]))
+        head = random.choice(list(lst[1]))
+        eyes = random.choice(list(lst[2]))
+        mouth = random.choice(list(lst[3]))
+        doc = {
+                "body": lst[0][body],
+                "head": lst[1][head],
+                "eyes": lst[2][eyes],
+                "mouth": lst[3][mouth]}
+        ret = cs.post(username, body, head, eyes ,mouth)
+        print(f'post {ret=}')
+        print(f'added {doc=}')
+        scribbles = db.get_scribbles(username)
+        print(f'{scribbles=}')
+        self.assertIn(doc, scribbles)

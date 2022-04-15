@@ -214,10 +214,7 @@ class Register(Resource):
 class CreateScribble(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.FORBIDDEN,
-                  'Only the owner of a room can delete it.')
     def post(self, username, body, head, eyes, mouth):
-
         ret = db.add_scribble(username, body, head, eyes, mouth)
         if ret == db.DUPLICATE:
             raise (wz.NotAcceptable("Scribble already exists."))
@@ -229,8 +226,6 @@ class CreateScribble(Resource):
 class GetScribbles(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.FORBIDDEN,
-                  'Only the owner of a room can delete it.')
     def get(self, username):
         scribbles = db.get_scribbles(username)
         if scribbles is None:
