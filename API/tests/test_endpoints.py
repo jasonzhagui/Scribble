@@ -128,3 +128,11 @@ class EndpointTestCase(TestCase):
         scribbles = db.get_scribbles(username)
         print(f'{scribbles=}')
         self.assertIn(doc, scribbles)
+
+    def test_get_scribbles(self):
+        """
+        Post-condition 1: return is a list.
+        """
+        gs = ep.GetScribbles(Resource)
+        ret = gs.get("jason")
+        self.assertIsInstance(ret, list)
