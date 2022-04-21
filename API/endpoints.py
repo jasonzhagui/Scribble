@@ -140,49 +140,6 @@ class CreateLayer(Resource):
             return f"{name} added."
 
 
-@api.route('/rooms/create/<roomname>')
-class CreateRoom(Resource):
-    """
-    This class supports adding a chat room.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key')
-    def post(self, roomname):
-        """
-        This method adds a room to the room db.
-        """
-        ret = db.add_room(roomname)
-        if ret == db.NOT_FOUND:
-            raise (wz.NotFound("Chat room db not found."))
-        elif ret == db.DUPLICATE:
-            raise (wz.NotAcceptable(f"Chat room {roomname} already exists."))
-        else:
-            return f"{roomname} added."
-
-
-@api.route('/rooms/delete/<roomname>')
-class DeleteRoom(Resource):
-    """
-    This class enables deleting a chat room.
-    While 'Forbidden` is a possible return value, we have not yet implemented
-    a user privileges section, so it isn't used yet.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    @api.response(HTTPStatus.FORBIDDEN,
-                  'Only the owner of a room can delete it.')
-    def post(self, roomname):
-        """
-        This method deletes a room from the room db.
-        """
-        ret = db.del_room(roomname)
-        if ret == db.NOT_FOUND:
-            raise (wz.NotFound(f"Chat room {roomname} not found."))
-        else:
-            return f"{roomname} deleted."
-
-
 @api.route('/user/<username>/<password>')
 class CheckCredentials(Resource):
     """
