@@ -30,17 +30,3 @@ class DBTestCase(TestCase):
         """
         users = db.get_users()
         self.assertIsInstance(users, list)
-
-    def test_get_rooms(self):
-        """
-        Can we fetch user db?
-        """
-        rooms = db.get_rooms()
-        self.assertIsInstance(rooms, list)
-
-    def test_get_layers(self):
-        """
-        Can we fetch layer db?
-        """
-        rooms = db.get_layers()
-        self.assertIsInstance(rooms, list)

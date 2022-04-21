@@ -10,8 +10,6 @@ import db.db_connect as dbc
 
 SCRIBBLE_HOME = os.environ["SCRIBBLE_HOME"]
 
-ROOMS = "rooms"
-
 # field names in our DB:
 USER_NM = "username"
 PASSWORD = "password"
@@ -36,13 +34,6 @@ client = dbc.get_client()
 if client is None:
     print("Failed to connect to MongoDB.")
     exit(1)
-
-
-def get_rooms():
-    """
-    A function to return a list of all rooms.
-    """
-    return dbc.fetch_all_raw(ROOMS, ROOM_NM)
 
 
 def get_layers():
