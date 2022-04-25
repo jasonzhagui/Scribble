@@ -51,42 +51,6 @@ class ListLayers(Resource):
             return layers
 
 
-@api.route('/layers/heads')
-class ListAllHeads(Resource):
-    """
-    This endpoint returns a list of all head layers.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get(self):
-        """
-        Returns a list of all head layers.
-        """
-        head_layers = db.get_head_layers()
-        if head_layers is None:
-            raise (wz.NotFound("head layers db not found."))
-        else:
-            return head_layers
-
-
-@api.route('/layers/<category>')
-class ListSpecificLayer(Resource):
-    """
-    This endpoint returns a list of layers by category input.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get(self, category):
-        """
-        Returns a list of layers by category input.
-        """
-        layer = db.get_specific_layer(category)
-        if layer is None:
-            raise (wz.NotFound("layers db not found."))
-        else:
-            return layer
-
-
 @api.route('/layers/dropdownList')
 class DropdownListLayers(Resource):
     @api.response(HTTPStatus.OK, 'Success')
@@ -97,24 +61,6 @@ class DropdownListLayers(Resource):
             raise (wz.NotFound("layers db not found."))
         else:
             return layers
-
-
-@api.route('/layers/<category>/<name>')
-class GetSpecificLayerName(Resource):
-    """
-    This endpoint returns a url link.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get(self, category, name):
-        """
-        Returns a url link.
-        """
-        layer = db.get_specific_layer(category)
-        if layer is None:
-            raise (wz.NotFound("layers db not found."))
-        else:
-            return layer[0][name]
 
 
 @api.route('/layers/create/<category>/<name>/<link>')
@@ -163,7 +109,7 @@ class Register(Resource):
     def post(self, username, password):
         ret = db.add_user(username, password)
         if ret == db.DUPLICATE:
-            raise (wz.NotAcceptable("Username already exists."))
+            raise (wz.NotAcceptable(f"{username} already exists."))
         return f"{username} added."
 
 
@@ -182,11 +128,11 @@ class CreateScribble(Resource):
 @api.route('/scribbles/<username>')
 class GetScribbles(Resource):
     @api.response(HTTPStatus.OK, 'Success')
-    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'Invalid Username')
     def get(self, username):
         scribbles = db.get_scribbles(username)
-        if scribbles is None:
-            raise (wz.NotFound("Scribble db not found."))
+        if scribbles == []:
+            raise (wz.NotAcceptable(f"{username} does not exist."))
         else:
             return scribbles
 

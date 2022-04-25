@@ -39,14 +39,6 @@ class EndpointTestCase(TestCase):
         ret = ll.get()
         self.assertIsInstance(ret, list)
 
-    def test_list_head_layers(self):
-        """
-        Post-condition 1: return is a list.
-        """
-        ll = ep.ListAllHeads(Resource)
-        ret = ll.get()
-        self.assertIsInstance(ret, list)
-
     def test_create_layers(self):
         """
         See if we can successfully create a new layer.
@@ -58,9 +50,9 @@ class EndpointTestCase(TestCase):
         new_link = new_entity_name("link")
         ret = cl.post(new_category, new_name, new_link)
         print(f'post {ret=}')
-        layers = db.get_all_layers_as_dict()
+        layers = db.get_layers()
         print(f'{layers=}')
-        self.assertIn(new_name, layers)
+        self.assertIn(new_name, {k:v for x in layers for k,v in x.items()})
 
     def test_dropdown_list_layers(self):
         """

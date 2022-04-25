@@ -77,29 +77,20 @@ def del_one(collect_nm, filters={}):
     return client[db_nm][collect_nm].delete_one(filters)
 
 
-def fetch_all(collect_nm):
+def fetch_all(collect_nm, ignore, filters):
     all_docs = []
-    for doc in client[db_nm][collect_nm].find():
+    for doc in client[db_nm][collect_nm].find(filters):
         docs = json.loads(bsutil.dumps(doc))
-        del docs["_id"]
-        del docs["layer"]
+        if ignore is not None:
+            for key in ignore:
+                del docs[key]
         all_docs.append(docs)
-
-    return all_docs
-
-
-def fetch_all_raw(collect_nm, key_nm):
-    all_docs = []
-    for doc in client[db_nm][collect_nm].find():
-        docs = json.loads(bsutil.dumps(doc))
-        all_docs.append(docs)
-
     return all_docs
 
 
 def fetch_for_dropdown(collect_nm):
     lst = []
-    raw = fetch_all(collect_nm)
+    raw = fetch_all(collect_nm, None, {})
     for doc in raw:
         temp = []
         for doc2 in list(doc.keys()):
@@ -108,39 +99,9 @@ def fetch_for_dropdown(collect_nm):
     return lst
 
 
-def fetch_all_as_dict(collect_nm, key_nm):
-    all_list = fetch_all_raw(collect_nm, key_nm)
-    print(f'{all_list=}')
-    all_dict = {}
-    for doc in all_list:
-        print(f'{doc=}')
-        all_dict[doc[key_nm]] = doc[key_nm]
-    return all_dict
-
-
-def fetch_all_as_list(collect_nm, key_nm):
-    all_list = fetch_all_raw(collect_nm, key_nm)
-    all_dict = {}
-    for doc in all_list:
-        all_dict[doc[key_nm]] = doc[key_nm]
-
-    new_list = list(all_dict.keys())
-    return new_list
-
-
 def insert_doc(collect_nm, doc):
     client[db_nm][collect_nm].insert_one(doc)
 
 
 def update_doc(collect_nm, doc, field):
     client[db_nm][collect_nm].update_one(doc, field)
-
-
-def fetch_all_layers_as_dict(collect_nm, key_nm):
-    all_list = fetch_all_raw(collect_nm, key_nm)
-    all_dict = {}
-    for doc in all_list:
-        for field in doc:
-            if(field != '_id' and field != 'layer'):
-                all_dict[field] = doc[field]
-    return all_dict

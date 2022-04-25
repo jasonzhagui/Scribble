@@ -40,46 +40,22 @@ def get_layers():
     """
     A function to return a list of all layers.
     """
-    return dbc.fetch_all(LAYERS)
+    return dbc.fetch_all(LAYERS, ["_id", "layer"], {})
 
 
 def get_layers_for_dropdown():
     return dbc.fetch_for_dropdown(LAYERS)
 
 
-def get_layers_as_dict():
-    """
-    A function to return a dictionary of all layers.
-    """
-    return dbc.fetch_all_as_dict(LAYERS, LAYER)
-
-
-def get_all_layers_as_dict():
-    """
-    A function to return a dictionary of all items.
-    """
-    return dbc.fetch_all_layers_as_dict(LAYERS, LAYER)
-
-
 def get_layers_as_list():
     """
     A function to return a dictionary of all layers.
     """
-    return dbc.fetch_all_as_list(LAYERS, LAYER)
-
-
-def get_head_layers():
-    """
-    A function to return a list of all head layers.
-    """
-    return dbc.fetch_one(LAYERS, filters={LAYER: HEAD})
-
-
-def get_specific_layer(category):
-    """
-     A function to return a list of layers by category input.
-    """
-    return dbc.fetch_one(LAYERS, filters={LAYER: category})
+    docs = dbc.fetch_all(LAYERS, None, {})
+    lst = []
+    for doc in docs:
+        lst.append(doc["layer"])
+    return lst
 
 
 def layer_exists(category, name):
@@ -113,13 +89,6 @@ def user_exists(username):
     rec = dbc.fetch_one_raw(USERS, filters={USER_NM: username})
     print(f"{rec=}")
     return rec is not None
-
-
-def get_users():
-    """
-    A function to return a list of all users.
-    """
-    return dbc.fetch_all_raw(USERS, USER_NM)
 
 
 def add_user(username, password):
@@ -176,11 +145,10 @@ def add_scribble(username, body, head, eyes, mouth):
             "eyes": lst[2][eyes],
             "mouth": lst[3][mouth]}
 
-    all_list = dbc.fetch_all_raw(SCRIBBLES, username)
+    all_list = dbc.fetch_all(SCRIBBLES, ["id"], {"username": username})
 
     for i in range(len(all_list)):
         item = all_list[i]
-        del item["_id"]
         if doc == item:
             return DUPLICATE
 
@@ -188,9 +156,5 @@ def add_scribble(username, body, head, eyes, mouth):
     return OK
 
 
-def get_scribbles(username):
-    doc = dbc.fetch_all_raw(SCRIBBLES, username)
-    for item in doc:
-        del item["_id"]
-        del item["username"]
-    return doc
+def get_scribbles(user):
+    return dbc.fetch_all(SCRIBBLES, ["_id", "username"], {"username": user})
