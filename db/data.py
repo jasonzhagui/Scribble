@@ -63,7 +63,7 @@ def layer_exists(category, name):
     See if a layer with name is in the db.
     Returns True or False.
     """
-    rec = dbc.fetch_one(LAYERS, filters={LAYER: category})
+    rec = dbc.fetch_one(LAYERS, [], filters={LAYER: category})
     rec = rec[0].get(name)
     print(f"{rec=}")
     return rec is not None
@@ -86,7 +86,7 @@ def user_exists(username):
     See if a user with username is in the db.
     Returns True of False.
     """
-    rec = dbc.fetch_one_raw(USERS, filters={USER_NM: username})
+    rec = dbc.fetch_one(USERS, ["_id"], filters={USER_NM: username})
     print(f"{rec=}")
     return rec is not None
 
@@ -104,30 +104,19 @@ def add_user(username, password):
         return OK
 
 
-def del_user(username):
-    """
-    Delete username from the db.
-    """
-    if not user_exists(username):
-        return NOT_FOUND
-    else:
-        dbc.del_one(USERS, filters={USER_NM: username})
-        return OK
-
-
 def get_specific_user(username):
     """
     See if a user with username is in the db.
     Returns username and password if exists.
     """
-    return dbc.fetch_one_raw(USERS, filters={USER_NM: username})
+    return dbc.fetch_one(USERS, ["_id"], filters={USER_NM: username})
 
 
 def check_credentials(username, password):
     """
     Check the username and password input against what's in the database
     """
-    doc = dbc.fetch_one_raw(USERS, filters={USER_NM: username})
+    doc = dbc.fetch_one(USERS, [], filters={USER_NM: username})
     if doc is None:
         return False
     elif password != doc[0].get(PASSWORD):

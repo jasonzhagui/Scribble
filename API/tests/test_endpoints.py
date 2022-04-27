@@ -93,9 +93,9 @@ class EndpointTestCase(TestCase):
         new_password = (new_entity_name("pass"))
         ret = reg.post(new_user, new_password)
         print(f'post {ret=}')
-        users = db.get_specific_user(new_user)
-        print(f'{users=}')
-        self.assertEqual(new_user, users[0]['username'])
+        user = db.get_specific_user(new_user)
+        print(f'{user=}')
+        self.assertEqual(new_user, user[0]['username'])
 
     def test_create_scribble(self):
         """

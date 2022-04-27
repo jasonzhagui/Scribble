@@ -44,27 +44,13 @@ def get_client():
     return client
 
 
-def fetch_one(collect_nm, filters={}):
-    """
-    Fetch one record that meets filters for layers.
-    """
-    docs = []
-    doc = client[db_nm][collect_nm].find_one(filters)
-    docs.append(json.loads(bsutil.dumps(doc)))
-    del docs[0]["_id"]
-    del docs[0]["layer"]
-    return docs
-
-
-def fetch_one_raw(collect_nm, filters={}):
-    """
-    Fetch one record that meets filters.
-    """
+def fetch_one(collect_nm, ignore, filters={}):
     docs = []
     doc = client[db_nm][collect_nm].find_one(filters)
     if doc is not None:
         docs.append(json.loads(bsutil.dumps(doc)))
-        del docs[0]["_id"]
+        for key in ignore:
+            del docs[0][key]
         return docs
     elif doc is None:
         return None
@@ -90,7 +76,7 @@ def fetch_all(collect_nm, ignore, filters):
 
 def fetch_for_dropdown(collect_nm):
     lst = []
-    raw = fetch_all(collect_nm, None, {})
+    raw = fetch_all(collect_nm, ["_id", "layer"], {})
     for doc in raw:
         temp = []
         for doc2 in list(doc.keys()):
