@@ -43,8 +43,8 @@ class EndpointTestCase(TestCase):
         new_category = random.choice(db.get_layers_as_list())
         new_name = new_entity_name("name")
         new_link = new_entity_name("link")
-        ret = cl.post(new_category, new_name, new_link)
-        print(f'post {ret=}')
+        cl.post(new_category, new_name, new_link)
+        print("Layer" + str({new_name, new_link}))
         layers = db.get_layers()
         print(f'{layers=}')
         self.assertIn(new_name, {k:v for x in layers for k,v in x.items()})
@@ -63,7 +63,6 @@ class EndpointTestCase(TestCase):
         Post-condition: bool.
         """
         cc = ep.CheckCredentials(Resource)
-
         username = ["test"]
         password = ["password"]
         username.append(new_entity_name("user"))

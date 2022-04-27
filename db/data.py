@@ -65,7 +65,6 @@ def layer_exists(category, name):
     """
     rec = dbc.fetch_one(LAYERS, [], filters={LAYER: category})
     rec = rec[0].get(name)
-    print(f"{rec=}")
     return rec is not None
 
 
@@ -73,7 +72,6 @@ def add_layer(category, name, link):
     """
     Add a layer to the layer database.
     """
-    print(f"{name=}")
     if layer_exists(category, name):
         return DUPLICATE
     else:
@@ -87,7 +85,6 @@ def user_exists(username):
     Returns True of False.
     """
     rec = dbc.fetch_one(USERS, ["_id"], filters={USER_NM: username})
-    print(f"{rec=}")
     return rec is not None
 
 
