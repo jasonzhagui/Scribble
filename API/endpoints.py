@@ -137,6 +137,18 @@ class GetScribbles(Resource):
             return scribbles
 
 
+@api.route('/check/<username>')
+class CheckUsername(Resource):
+    """
+    This endpoint checks if User exists
+    """
+    def get(self, username):
+        """
+        Returns a bool
+        """
+        return db.user_exists(username)
+
+
 @api.route('/endpoints')
 class Endpoints(Resource):
     """

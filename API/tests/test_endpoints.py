@@ -19,11 +19,6 @@ def new_entity_name(entity_type):
 
 
 class EndpointTestCase(TestCase):
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
 
     def test_hello(self):
         hello = ep.HelloWorld(Resource)
@@ -128,3 +123,18 @@ class EndpointTestCase(TestCase):
         gs = ep.GetScribbles(Resource)
         ret = gs.get("jason")
         self.assertIsInstance(ret, list)
+
+    def test_check_username(self):
+        """
+        Post-condition 1: return is a list.
+        """
+        gs = ep.CheckUsername(Resource)
+
+        username = ["test"]
+        password = ["password"]
+        username.append(new_entity_name("user"))
+        password.append(new_entity_name("pass"))
+
+        user = random.choice(username)	
+        ret = gs.get(user)
+        self.assertIsInstance(ret, bool)
