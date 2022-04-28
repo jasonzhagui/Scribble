@@ -131,7 +131,7 @@ def add_scribble(username, body, head, eyes, mouth):
             "eyes": lst[2][eyes],
             "mouth": lst[3][mouth]}
 
-    all_list = dbc.fetch_all(SCRIBBLES, ["id"], {"username": username})
+    all_list = dbc.fetch_all(SCRIBBLES, ["_id"], {"username": username})
 
     for i in range(len(all_list)):
         item = all_list[i]
