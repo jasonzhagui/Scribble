@@ -131,10 +131,7 @@ class GetScribbles(Resource):
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'Invalid Username')
     def get(self, username):
         scribbles = db.get_scribbles(username)
-        if scribbles == []:
-            raise (wz.NotAcceptable(f"{username} does not exist."))
-        else:
-            return scribbles
+        return scribbles
 
 
 @api.route('/check/<username>')
