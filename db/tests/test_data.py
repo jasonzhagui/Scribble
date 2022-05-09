@@ -21,24 +21,39 @@ def new_entity_name(entity_type):
 
 class DBTestCase(TestCase):
     def test_get_layers(self):
+        """
+        Post-condition 1: return is a list.
+        """
         ret = db.get_layers()
         return self.assertIsInstance(ret, list)
 
     def test_get_layers_for_dropdown(self):
+        """
+        Post-condition 1: return is a list.
+        """
         ret = db.get_layers_for_dropdown()
         return self.assertIsInstance(ret, list)
 
     def test_get_layers_as_list(self):
+        """
+        Post-condition 1: return is a list.
+        """
         ret = db.get_layers_as_list()
         return self.assertIsInstance(ret, list)
 
     def test_layer_exists(self):
+        """
+        Post-condition 1: return is a bool.
+        """
         category = random.choice(LAYERS)
         name = new_entity_name("name")
         ret = db.layer_exists(category, name)
         return self.assertIsInstance(ret, bool)
 
     def test_add_layer(self):
+        """
+        Post-condition 1: return is a int.
+        """
         category = random.choice(LAYERS)
         name = new_entity_name("name")
         link = new_entity_name("link")
@@ -46,6 +61,9 @@ class DBTestCase(TestCase):
         return self.assertIsInstance(ret, int)
 
     def test_user_exists(self):
+        """
+        Post-condition 1: return is a bool.
+        """
         users = ["testing"]
         users.append(new_entity_name("user"))
         username = random.choice(users)
@@ -53,6 +71,9 @@ class DBTestCase(TestCase):
         return self.assertIsInstance(ret, bool)
 
     def test_add_user(self):
+        """
+        Post-condition 1: return is a int.
+        """
         users = ["testing"]
         users.append(new_entity_name("user"))
         username = random.choice(users)
@@ -61,11 +82,17 @@ class DBTestCase(TestCase):
         return self.assertIsInstance(ret, int)
 
     def test_get_specific_user(self):
+        """
+        Post-condition 1: return is a list.
+        """
         username = "testing"
         ret = db.get_specific_user(username)
         return self.assertIsInstance(ret, list)
 
     def test_check_credentials(self):
+        """
+        Post-condition 1: return is a bool.
+        """
         users = ["testing"]
         users.append(new_entity_name("user"))
         username = random.choice(users)
@@ -76,6 +103,9 @@ class DBTestCase(TestCase):
         return self.assertIsInstance(ret, bool)
 
     def test_add_scribble(self):
+        """
+        Post-condition 1: return is a int.
+        """
         username = "testing"
         layers = db.get_layers()
         body = random.choice(list(layers[0].keys()))
@@ -86,6 +116,9 @@ class DBTestCase(TestCase):
         return self.assertIsInstance(ret, int)
 
     def test_get_scribbles(self):
+        """
+        Post-condition 1: return is a list.
+        """
         users = ["testing"]
         users.append(new_entity_name("user"))
         username = random.choice(users)
