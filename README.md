@@ -3,12 +3,14 @@
 ## Requirements
 
 - Create a user
-- Allow users to generate random scribbles
-- Keep track of scribbles and their creators/owners
-- Trade scribbles with other users
-- Ranking system based on rarity of features
-- List created scribbles with filter system
+- User logged in/out with permissions
+- Allow users to generate random Scribbles
+- Select different features to draw Scribbles
+- Keep track of Scribbles and their creators/owners
 
 ## Design
 
-- User can select different features and filter list of scribbles in a checkbox filter format
+- Use flask_restx to build an API server
+- Handle each major requirement with an API endpoint
+- Use Test-Driven-Development (TDD) to make sure we have testing
+- Use Swagger for initial interaction with server
